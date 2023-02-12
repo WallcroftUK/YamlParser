@@ -9,13 +9,14 @@ namespace YamlParser.Plugins
     public class MapMonsterPlugin : IPlugin
     {
         private readonly Configuration _configuration;
-        private readonly List<int> _mapAlreadyDone = new();
+        private readonly List<int> _mapAlreadyDone;
         private readonly Serializer _serializer;
 
         public MapMonsterPlugin(IOptions<Configuration> configuration)
         {
             _configuration = configuration.Value;
             _serializer = new SerializerBuilder().DisableAliases().Build();
+            _mapAlreadyDone = new();
         }
 
         public void Run()
