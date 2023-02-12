@@ -1,4 +1,4 @@
-﻿using YamlParser.Core;
+using YamlParser.Core;
 
 namespace YamlParser.Extensions
 {
@@ -6,19 +6,21 @@ namespace YamlParser.Extensions
     {
         public static void CreateFile(this Configuration configuration, string name, string folder, string yaml)
         {
-            string portalDirectory = $"{configuration.BasePath}{folder}";
+            string portalDirectory = Path.Combine(configuration.BasePath, folder);
+
             if (!Directory.Exists(portalDirectory))
             {
                 Directory.CreateDirectory(portalDirectory);
             }
 
-            string filePattern = $"{portalDirectory}/{name}.yaml";
-            if (File.Exists(filePattern))
+            string filePath = Path.Combine(portalDirectory, $"{name}.yaml");
+
+            if (File.Exists(filePath))
             {
-                File.Delete(filePattern);
+                File.Delete(filePath);
             }
 
-            File.WriteAllText($"{portalDirectory}/{name}.yaml", yaml);
+            File.WriteAllText(filePath, yaml);
         }
     }
 }
